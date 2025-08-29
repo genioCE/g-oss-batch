@@ -1,0 +1,13 @@
+batch:
+  target: dev
+  outputs:
+    dev:
+      type: trino
+      method: none
+      user: trino
+      host: ${TRINO_HOST}
+      port: ${TRINO_PORT}
+      http_scheme: http
+      database: iceberg
+      schema: silver
+      threads: 4

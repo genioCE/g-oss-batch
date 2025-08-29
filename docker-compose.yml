@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  airflow-db:
+    image: postgres:14
+    environment: [ "POSTGRES_DB=airflow", "POSTGRES_USER=airflow", "POSTGRES_PASSWORD=airflow" ]
+  airflow:
+    build: ./docker/airflow
+    env_file: .env
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@airflow-db:5432/airflow
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+    ports: ["8082:8080"]
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./dbt:/opt/airflow/dbt
+      - ./ge:/opt/airflow/ge
+    depends_on: [ airflow-db ]

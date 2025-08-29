@@ -1,0 +1,4 @@
+dbt-core==1.7.9
+dbt-trino==1.7.3
+great_expectations==0.18.14
+sqlalchemy-trino==0.5.0
